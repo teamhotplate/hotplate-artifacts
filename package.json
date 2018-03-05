@@ -1,0 +1,33 @@
+{
+  "name": "react-forum",
+  "version": "1.0.0",
+  "description": "## React Forum.",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js",
+    "client": "node scripts/start-client.js",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "build": "node scripts/build.js",
+    "installDeps": "yarn && cd client && yarn"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+      "concurrently": "^3.5.0",
+      "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "bad-language-filter": "^1.0.2",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "jsonwebtoken": "^8.1.1",
+    "mysql2": "^1.5.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "path-to-regexp": "^2.1.0",
+    "sequelize": "^4.32.1",
+    "axios": "^0.16.2"
+  }
+}
