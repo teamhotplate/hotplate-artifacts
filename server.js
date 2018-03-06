@@ -18,8 +18,6 @@ app.use(express.static("client/build"));
 app.use(routes);
 
 // Set up promises with mongoose
-db.sequelize.Promise = global.Promise;
-
 // Start the API server
 db.sequelize.sync({ force: true }).then(function () {
 
