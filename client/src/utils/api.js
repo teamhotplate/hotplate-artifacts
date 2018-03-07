@@ -6,6 +6,10 @@ export default {
         return axios.post("/login");
     },
 
+    register: function(userData){
+        return axios.post("/api/users");
+    },
+
     createPage: function(pageData) {
         return axios.post("/api/pages");
     },
@@ -23,7 +27,7 @@ export default {
     },
 
     createComment: function(commentData){
-        return axios.post("/api/comments/")
+        return axios.post("/api/comments/");
     },
 
     getCommentByPage: function(id) {
@@ -31,10 +35,10 @@ export default {
     },
 
     deleteComment: function(id) {
-        return axios.delete("/api/comments/:id")
+        return axios.delete("/api/comments/:id");
     },
 
     getCommentByUser: function(id) {
-        return axios.get("/api/comments/u/:id")
+        return axios.get("/api/comments/u/:id");
     }
 };
