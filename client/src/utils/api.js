@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const api = {
+export default {
 
-    retrievePosts: function() {}
-}
+
+
+};
