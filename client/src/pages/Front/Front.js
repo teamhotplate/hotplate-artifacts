@@ -10,15 +10,14 @@ class Front extends Component {
     };
 
     componentDidMount() {
-        this.loadPages();
-        
-    }
+        this.loadPages();   
+    };
+
     loadPages = () => {
         API.getPages()
             .then(res =>
                 this.setState({ posts: res.data })
-            )
-            .catch(err => console.log(err))
+            ).catch(err => console.log(err))
     };
 
     render() {

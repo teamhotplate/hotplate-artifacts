@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
+import { Form, Button, Input } from "../../components/Form";
 
 class Login extends Component {
     state = {
@@ -8,32 +9,45 @@ class Login extends Component {
         pass: ""
     };
 
+    submitUser = () => {
+        // event.preventDefault();
+        API.register({
+            user: this.state.user,
+            pass: this.state.pass
+        });
+    };
+
+    logUser = () => {
+        // event.preventDefault();
+        API.login({
+            user: this.state.user,
+            pass: this.state.pass
+        });
+    };
+
     render() {
         return (
             <div>
-                <div className="row">
-                    <form className="col s12">
-                        <div className="row">
-                            <div className="input-field col s6">
-                            <input placeholder="Username" id="first_name" type="text" className="validate"></input>
-                            <label for="username"></label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="password" type="password" placeholder="Password" className="validate"></input>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="password" type="password" placeholder="Confirm Password" className="validate"></input>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="email" type="email" placeholder="Email" className="validate"></input>
-                            </div>
-                        </div>
+            <div className="row">
+                <form>
+                        <Input
+                            name="Username"
+                            placeholder="Username"
+                            onChangeText={(text) => this.state.user}
+                        />
+                        <Input
+                            name="Password"
+                            placeholder="Password"
+                            type="Password"
+                            onChangeText={(text) => this.state.pass}
+                        />
+                        <Input
+                            name="Valid-Password"
+                            type="Password"
+                            placeholder="Confirm Password"
+                        />
+                        <Button onClick={() => this.submitUser()} value="Register" />
+                        <Button onClick={() => this.logUser()} value="Login" />
                     </form>
                 </div>
             </div>
