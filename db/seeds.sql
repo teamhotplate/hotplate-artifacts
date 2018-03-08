@@ -8,7 +8,7 @@ friendlier and they play with you more.', now(), now(), 1);
 insert into Pages (name, description, createdAt, updatedAt, UserId) VALUES ('CMV: The plot of "Captain America: Civil War" makes no sense, and the movie sucks as a result.', 'I do not understand why anybody likes this movie',
 now(), now(), 2);
 
-insert into Comments (text, points, reportFlg, createdAt, updatedAt, ParentId, PageId, UserId) VALUES ('I do not agree. Captain America Civil War was a great film and makes total sense'
+insert into Comments (text, points, reportFlg, createdAt, updatedAt, ParentId, PageId, UserId) VALUES ('I do not agree. Captain America Civil War was a great film and makes total sense',
 0,0,now(),now(),null,2,1);
 insert into Comments (text, points, reportFlg, createdAt, updatedAt, ParentId, PageId, UserId) VALUES ('Well you are an idiot',
 0,0,now(),now(),1,2,2);

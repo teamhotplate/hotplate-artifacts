@@ -23,7 +23,10 @@ class Main extends Component {
                 <div className="nav-bar">
                     <h1>{this.NavBar}</h1>
                 </div>
+                <div>
+                    <p>{this.InfoCard}</p>
+                </div>
             </div>
         );
-    }
-}
+    };
+};
