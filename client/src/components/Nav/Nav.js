@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Nav = () =>
     <nav className="navbar navbar-inverse navbar-top">
@@ -11,7 +12,9 @@ const Nav = () =>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li><a href="">Profile</a></li>
                     <li><a href="">About</a></li>
-                    <li><a href="">Home</a></li>
+                    <li><Link to={{
+                            pathname: "/"
+                        }}>Home</Link></li>
                 </ul>
                 <a href="/" className="navbar-brand">
                     hotplate
