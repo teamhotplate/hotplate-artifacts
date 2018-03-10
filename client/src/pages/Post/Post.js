@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import API from "../../utils/api";
+import API from "../../utils/API";
 import AUTH from "../../utils/auth";
 import {Collection, CollectionItem, Row} from "react-materialize";
 import { Form, Button, Input } from "../../components/Form";
