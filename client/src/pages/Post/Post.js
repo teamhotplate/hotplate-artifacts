@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import API from "../../utils/API";
+import API from "../../utils/api";
 import AUTH from "../../utils/auth";
 import {Collection, CollectionItem, Row} from "react-materialize";
 import { Form, Button, Input } from "../../components/Form";
@@ -34,7 +34,6 @@ class Post extends Component {
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
                 user: AUTH.getCurrentUser
-                // username: this.state.comment           
         })
         .then(res => this.loadComments());
         // .catch(err => console.log(err));
