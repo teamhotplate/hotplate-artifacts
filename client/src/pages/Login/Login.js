@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import API from "../../utils/API";
+import API from "../../utils/api";
+import AUTH from "../../utils/auth"
 import { Form, Button, Input } from "../../components/Form";
 import { Icon } from "react-materialize";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -12,6 +13,10 @@ class Login extends Component {
         pass: ""
     };
 
+    componentDidMount() {
+        this.getUser();
+    };
+
     submitUser = event => {
         event.preventDefault();
         API.register({
@@ -20,9 +25,7 @@ class Login extends Component {
         }).then(function(data, err) {
             if (data.status === 200) {
                 return <Front />
-                console.log(data);
             } else {
-                console.log(err);
             }
         });
     };
@@ -32,24 +35,37 @@ class Login extends Component {
         API.login({
             username: this.state.user,
             password: this.state.pass
-        }).then(function(data, err) {
-            if (data.status === 200) {
-                <Link to="/" />
-                return <Front />
-                console.log(data);
-            } else {
-                console.log(err);
-            }
-        });
+        }).then(
+            function (result) {
+                if (result.data.token) {
+                    // We got a token!! Login was successful.
+                    // The JWT comes in with a prefix on it: "JWT ". That makes it easier to spot as a JWT.
+                    // We strip that header so only the token remains.
+                    var jwtEncoded = result.data.token.split(" ")[1];
+                    // Store the user token in local storage
+                    localStorage.setItem('userToken', jwtEncoded);
+                    var currentUser = AUTH.getCurrentUser();
+                    window.location.href = '/';
+                } else {
+                    console.log("Failed. Response: " + JSON.stringify(result));
+                }
+            });
     };
 
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+            [name]: value
         });
-        console.log(this.state)
-      };
+    };
+
+
+    getUser = () => {
+        let currentUser = (AUTH.getCurrentUser() ? AUTH.getCurrentUser() : "" );
+        this.setState({
+            user: currentUser.username
+        })
+    }
 
     render() {
         return (
@@ -79,7 +95,8 @@ class Login extends Component {
                         </Button>
                         <Button 
                             disabled={!(this.state.user && this.state.pass)}
-                            onClick={this.submitUser} value="Register">
+                            onClick={this.submitUser}
+                            to="/" value="Register">
                             <Icon small>Sign Up</Icon>
                         </Button>
                     </form>
