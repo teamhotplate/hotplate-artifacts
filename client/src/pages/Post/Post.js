@@ -34,8 +34,6 @@ class Post extends Component {
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
                 user: AUTH.getCurrentUser
-                // username: this.state.comment
-            
         })
         .then(res => this.loadComments());
         // .catch(err => console.log(err));
