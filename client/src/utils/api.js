@@ -3,15 +3,15 @@ import axios from "axios";
 export default {
 
     login: function(userData){
-        return axios.post("/login");
+        return axios.post("/login", userData);
     },
 
     register: function(userData){
-        return axios.post("/api/users");
+        return axios.post("/api/users", userData);
     },
 
     createPage: function(pageData) {
-        return axios.post("/api/pages");
+        return axios.post("/api/pages", pageData);
     },
     
     getPages: function() {
@@ -19,26 +19,26 @@ export default {
     },
 
     getPage: function(id) {
-        return axios.get("/api/pages/:id");
+        return axios.get("/api/pages/"+id);
     },
 
     getPageByUser: function(id) {
-        return axios.get("/api/pages/u/:id");
+        return axios.get("/api/pages/u/"+id);
     },
 
     createComment: function(commentData){
-        return axios.post("/api/comments/");
+        return axios.post("/api/comments/", commentData);
     },
 
     getCommentByPage: function(id) {
-        return axios.get("/api/comments/:id");
+        return axios.get("/api/comments/" + id);
     },
 
     deleteComment: function(id) {
-        return axios.delete("/api/comments/:id");
+        return axios.delete("/api/comments/" +id);
     },
 
     getCommentByUser: function(id) {
-        return axios.get("/api/comments/u/:id");
+        return axios.get("/api/comments/u/" + id);
     }
 };
