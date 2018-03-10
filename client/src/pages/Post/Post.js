@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-import {Collection, CollectionItem} from "react-materialize";
+// import Auth from "../../utils/auth";
+import {Collection, CollectionItem, Row} from "react-materialize";
 import { Form, Button, Input } from "../../components/Form";
 import moment from "moment";
 
 class Post extends Component {
     state = {
         post: {},
-        comments: []
-        };
+        comments: [],
+        newComment: {
+            text: "",
+            pageId: "",
+            user: ""
+        }
+    };
         
     componentDidMount() {
         this.loadComments();
@@ -22,13 +28,31 @@ class Post extends Component {
             ).catch(err => console.log(err));
     };
 
+    newComment = event => {
+        // event.preventDefault()
+        API.createComment({
+           
+                text: this.state.newComment.text,
+                PageId: this.props.match.params.id,
+                user: this.getCurrentUser
+                // username: this.state.comment
+            
+        })
+        .then(res => this.loadComments());
+        // .catch(err => console.log(err));
+    };
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+            newComment:{
+                [name]: value,
+                PageId: this.props.match.params.id,
+                user: this.props.match.params.user
+            }
         });
         console.log(this.state)
-      };
+    };
 
     render() {
         return (
@@ -36,7 +60,7 @@ class Post extends Component {
                 <div className="post-title">
                     <h1>{this.props.location.state.post.name}</h1>
                 </div>
-                {console.log(this.props.location.state.post)}
+                {console.log(this.state)}
                 <div className="comments">
                     <Collection>
                         {this.state.comments.map(comment => (
@@ -48,7 +72,18 @@ class Post extends Component {
                             )
                         )}
                     </Collection>
-                    <Button>Participate</Button>
+                    <Row>
+                        <Input 
+                        type='textarea'
+                        name="text" 
+                        value={this.state.text}
+                        onChange={this.handleInputChange}
+                        />
+                    </Row>
+                    <Button onClick={this.newComment}>
+                        Participate
+                    </Button>
+                    {console.log(this.state)}
                 </div>
             </div>
         );
