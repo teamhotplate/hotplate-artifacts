@@ -30,8 +30,7 @@ class Post extends Component {
 
     newComment = event => {
         // event.preventDefault()
-        API.createComment({
-           
+        API.createComment({          
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
                 user: AUTH.getCurrentUser
@@ -40,6 +39,16 @@ class Post extends Component {
         })
         .then(res => this.loadComments());
         // .catch(err => console.log(err));
+        this.state.text=" ";
+    };
+
+    deleteComment = id => {
+        API.deleteComment(id)
+          .then(res => this.loadComments());
+    };
+
+    editComment = id => {
+        API.editComment()
     };
 
     handleInputChange = event => {
@@ -51,7 +60,6 @@ class Post extends Component {
                 user: this.props.match.params.user
             }
         });
-        console.log(this.state)
     };
 
     render() {
@@ -60,20 +68,28 @@ class Post extends Component {
                 <div className="post-title">
                     <h1>{this.props.location.state.post.name}</h1>
                 </div>
-                {console.log(this.state)}
                 <div className="comments">
                     <Collection>
                         {this.state.comments.map(comment => (
-                            <CollectionItem className="comment">
+                            <CollectionItem className="comment" key={comment.id}>
                             {comment.text}
                             <p className="user">- {comment.username}</p>
                             <p className="timestamp">- {moment(comment.updatedAt).format("MMMM Do YYYY, h:mm a")}</p>
+                            <Row>
+                                <Button 
+                                    type='delete'
+                                    className='red'
+                                    icon='remove'
+                                    onClick={() => this.deleteComment(comment.id)}
+                                >Delete</Button>
+                            </Row>
                             </CollectionItem>
                             )
                         )}
                     </Collection>
                     <Row>
                         <Input 
+                        className="input"
                         type='textarea'
                         name="text" 
                         value={this.state.text}
@@ -83,7 +99,6 @@ class Post extends Component {
                     <Button onClick={this.newComment}>
                         Participate
                     </Button>
-                    {console.log(this.state)}
                 </div>
             </div>
         );

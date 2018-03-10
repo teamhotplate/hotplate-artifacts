@@ -2,11 +2,11 @@ const passport = require('passport');
 const router = require("express").Router();
 const commentsController = require("../../controllers/commentsController");
 
-// Matches with "/api/books"
+
 router.route("/")
     .post(commentsController.create, passport.authenticate('jwt', { session: false }));
 
-// Matches with "/api/books/:id"
+
 router
     .route("/:id")
     .get(commentsController.findById)
