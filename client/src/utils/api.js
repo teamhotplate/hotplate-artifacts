@@ -35,7 +35,7 @@ export default {
     },
 
     deleteComment: function(id) {
-        return axios.delete("/api/comments/" +id);
+        return axios.delete("/api/comments/" + id);
     },
 
     getCommentByUser: function(id) {
