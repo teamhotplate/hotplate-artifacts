@@ -7,6 +7,5 @@ const pageRoutes = require("./pages");
 router.use("/comments", commentRoutes)
       .use("/users", userRoutes)
       .use("/pages", pageRoutes);
-
-
+      
 module.exports = router;

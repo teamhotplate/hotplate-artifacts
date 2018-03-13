@@ -1,109 +1,91 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-import AUTH from "../../utils/auth"
+import AuthService from '../../utils/auth';
+
+
 import { Form, Button, Input } from "../../components/Form";
 import { Icon } from "react-materialize";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Front from "../Front";
 
 class Login extends Component {
-    state = {
-        user: "",
-        pass: ""
+    constructor(){
+        super();
+        this.handleChange = this.handleChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.Auth = new AuthService();
+        this.submitUser = this.submitUser.bind(this);
     };
+    componentWillMount() {
+        if (this.Auth.loggedIn())
+            this.props.history.replace('/');
+    }
 
-    componentDidMount() {
-        this.getUser();
-    };
-
-    submitUser = event => {
-        event.preventDefault();
+    submitUser(e) {
+        e.preventDefault();
         API.register({
-            username: this.state.user,
-            password: this.state.pass
-        }).then(function(data, err) {
-            if (data.status === 200) {
-                return <Front />
-            } else {
-            }
-        });
-    };
-
-    logUser = event => {
-        event.preventDefault();
-        API.login({
-            username: this.state.user,
-            password: this.state.pass
-        }).then(
-            function (result) {
-                if (result.data.token) {
-                    // We got a token!! Login was successful.
-                    // The JWT comes in with a prefix on it: "JWT ". That makes it easier to spot as a JWT.
-                    // We strip that header so only the token remains.
-                    var jwtEncoded = result.data.token.split(" ")[1];
-                    // Store the user token in local storage
-                    localStorage.setItem('userToken', jwtEncoded);
-                    var currentUser = AUTH.getCurrentUser();
-                    window.location.href = '/';
-                } else {
-                    console.log("Failed. Response: " + JSON.stringify(result));
-                }
-            });
-    };
-
-    handleInputChange = event => {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value
-        });
-    };
-
-
-    getUser = () => {
-        let currentUser = (AUTH.getCurrentUser() ? AUTH.getCurrentUser() : "" );
-        this.setState({
-            user: currentUser.username
+            username: this.state.username,
+            password: this.state.password
+        }).then(res => {
+                this.props.history.replace('/');
+        })
+        .catch(err =>{
+            alert("That username is unavailable");
         })
     }
 
-    render() {
-        return (
-            <div>
-            <div className="row">
-                <form>
+    handleChange(e) {
+        this.setState(
+            {
+                [e.target.name]: e.target.value
+            }
+        )
+    }
+
+    handleFormSubmit(e) {
+        e.preventDefault();
+
+        this.Auth.login(this.state.username, this.state.password)
+            .then(res => {
+                this.props.history.replace('/');
+            })
+            .catch(err => {
+                alert(err);
+            })
+    }
+
+    render(){
+        return(
+            <div className = "center" >
+                    <h1>Login</h1>
+                    <form>
                         <Input
-                            value={this.state.user}
-                            name="user"
+                            name="username"
+                            className = "form-item"
                             placeholder="Username"
-                            onChange={this.handleInputChange}
+                            onChange={this.handleChange}
+                            type="text"
                         />
                         <Input
-                            name="pass"
-                            value={this.state.pass}
+                            className="form-item"
                             placeholder="Password"
-                            type="Password"
-                            onChange={this.handleInputChange}
+                            name="password"
+                            type="password"
+                            onChange={this.handleChange}
                         />
-                        <Input
-                            name="Valid-Password"
-                            type="Password"
-                            placeholder="Confirm Password"
-                        />
-                        <Button onClick={this.logUser} value="Login">
+                        <Button onClick= {this.handleFormSubmit} className="form-submit" value="Login" type="submit">
                             <Icon small>Login</Icon>
                         </Button>
                         <Button 
-                            disabled={!(this.state.user && this.state.pass)}
                             onClick={this.submitUser}
                             to="/" value="Register">
                             <Icon small>Sign Up</Icon>
                         </Button>
                     </form>
                 </div>
-            </div>
         );
     }
-}
-
+};
 export default Login;
+
