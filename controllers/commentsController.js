@@ -38,7 +38,6 @@ module.exports = {
         if (req.body.ParentId === ''){
             newCommentObj = {
             text: req.body.text,
-            side: req.body.side,
             points: 0,
             reportFlg: false,
             ParentId: null,
@@ -48,7 +47,6 @@ module.exports = {
         } else {
             newCommentObj = {
                 text: req.body.text,
-                side: req.body.side,
                 points: 0,
                 reportFlg: false,
                 ParentId: req.body.ParentId,
