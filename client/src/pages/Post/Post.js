@@ -13,7 +13,8 @@ class Post extends Component {
         newComment: {
             text: "",
             pageId: "",
-            user: ""
+            username: "",
+            userId: ""
         }
     };
         
@@ -29,15 +30,15 @@ class Post extends Component {
     };
 
     newComment = event => {
-        // event.preventDefault()
+        event.preventDefault();
         API.createComment({          
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
-                user: AUTH.getCurrentUser
+                username: this.state.newComment.user,
+                UserId: this.state.newComment.userId
         })
         .then(res => this.loadComments());
-        // .catch(err => console.log(err));
-        this.state.text=" ";
+        // this.state.text=" ";
     };
 
     deleteComment = id => {
@@ -55,7 +56,8 @@ class Post extends Component {
             newComment:{
                 [name]: value,
                 PageId: this.props.match.params.id,
-                user: this.props.match.params.user
+                user: AUTH.getCurrentUser().username,
+                userId: AUTH.getCurrentUser().user_id
             }
         });
     };
@@ -67,6 +69,7 @@ class Post extends Component {
                     <h1>{this.props.location.state.post.name}</h1>
                 </div>
                 <div className="comments">
+                {console.log(this.state)}
                     <Collection>
                         {this.state.comments.map(comment => (
                             <CollectionItem className="comment" key={comment.id}>
