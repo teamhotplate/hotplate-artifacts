@@ -89,12 +89,7 @@ class Post extends Component {
             newComment:{
                 [name]: value,
                 PageId: this.props.match.params.id,
-<<<<<<< HEAD
-                // user: AUTH.getCurrentUser().username,
-                // userId: AUTH.getCurrentUser().user_id
-=======
                 userId: AuthService.getCurrentUser().user_id
->>>>>>> c21193b95250f6111869598bc30fa5fbe952b1e1
             }
         });
     };
