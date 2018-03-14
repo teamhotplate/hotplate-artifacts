@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import {Collection} from "react-materialize";
 import API from "../../utils/API";
 import CollectionItem from "react-materialize/lib/CollectionItem";
+import { Form, Button, Input } from "../../components/Form";
 import moment from "moment";
 
 class Front extends Component {
     state = {
-        posts: []
+        posts: [],
     };
 
     componentDidMount() {
