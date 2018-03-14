@@ -42,7 +42,7 @@ render() {
                         <span className="icon-bar" />
                     </button>
                     <ul id="nav-mobile" className="right">
-                        <li>{!(this.Auth.loggedIn()) ? <a href="/login-page">Login</a> : <a href={"/profile/"+this.state.userId}>Profile</a>}</li>
+                        <li>{!(this.Auth.loggedIn()) ? <a href="/login-page">Login</a> : <a href={"/profile/"+(this.Auth.getProfile()).user_id}>Profile</a>}</li>
                         <li><a onClick={this.handleLogout} href="/">Logout</a></li>
                     </ul>
                     <a href="/" className="navbar-brand">
