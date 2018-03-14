@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import {Collection} from "react-materialize";
 import API from "../../utils/API";
 import AuthService from '../../utils/auth';
-
+import Modal from "../../components/Modal";
 import CollectionItem from "react-materialize/lib/CollectionItem";
+import { Form, Button, Input } from "../../components/Form";
 import moment from "moment";
 
 class Front extends Component {
@@ -13,7 +14,8 @@ class Front extends Component {
         this.Auth = new AuthService();
         this.state = {
             posts : [],
-            userId : null
+            userId : null,
+            isOpen: false
         }
         this.getUserId = this.getUserId.bind(this);
         this.loadPages = this.loadPages.bind(this);
@@ -23,6 +25,7 @@ class Front extends Component {
         this.loadPages();  
         this.getUserId(); 
     };
+
     getUserId = () => {
         if (this.Auth.loggedIn){
             let UserData = this.Auth.getProfile();
@@ -39,11 +42,25 @@ class Front extends Component {
             ).catch(err => console.log(err))
     };
 
+    createPost = () => {
+        console.log(this.state)
+        this.setState({
+            isOpen: this.state.isOpen
+          });
+    };
+
     render() {
         return (
             <div className="main">
                 <div className="posts">
                     <h1 id="main-title">Welcome to hotplate, home of the hotplate</h1>
+                    <Button 
+                        type='delete'
+                        className='red'
+                        icon='remove'
+                        onClick={() => this.createPost()}
+                        >New Post
+                    </Button>
                     <Collection>
                         {this.state.posts.map(post => (
                             <Link to={{
