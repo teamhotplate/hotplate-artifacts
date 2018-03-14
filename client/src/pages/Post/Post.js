@@ -7,12 +7,12 @@ import { Form, Button, Input } from "../../components/Form";
 import moment from "moment";
 
 class Post extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.Auth = new AuthService();
         this.state = {
-            post: {},
             userId: null,
+            post: {},
             comments: [],
             parentComments: [],
             childComments: [],
@@ -26,17 +26,25 @@ class Post extends Component {
     };
         
     componentDidMount() {
+        this.loadPage();
         this.loadComments();
         this.getUserId();
     };
     getUserId = () => {
-        let UserData = this.Auth.getProfile();
-        console.log(UserData)
-        this.setState(
-            { userId: UserData.user_id }
-        )
+        if (this.Auth.loggedIn()){
+            let UserData = this.Auth.getProfile();
+            this.setState(
+                { userId: UserData.user_id }
+            )
+        }
     }
 
+    loadPage = () => {
+        API.getPage(this.props.match.params.id)
+            .then(res =>
+                this.setState({ post: res.data })
+            ).catch(err => console.log(err))
+    };
     loadComments = () => {
         API.getCommentByPage(this.props.match.params.id)
             .then(res =>
@@ -109,7 +117,8 @@ class Post extends Component {
         return (
             <div className="comment-page">
                 <div className="post-title">
-                    <h1>{this.props.location.state.post.name}</h1>
+                    <h1>{ this.state.post.name }</h1>
+                    <h4>{this.state.post.description}</h4>
                 </div>
                 <div className="comments">
                 {console.log(this.state)}

@@ -27,10 +27,13 @@ class Front extends Component {
     };
 
     getUserId = () => {
-        let UserData = this.Auth.getProfile();
-        this.setState(
-            { userId: UserData.user_id }
-        )
+        if (this.Auth.loggedIn){
+            let UserData = this.Auth.getProfile();
+            console.log(UserData)
+            this.setState(
+                { userId: UserData.user_id }
+            )
+        }
     }
 
     loadPages = () => {
@@ -63,7 +66,7 @@ class Front extends Component {
                         {this.state.posts.map(post => (
                             <Link to={{
                                 pathname: "/post-page/" + post.id,
-                                state: {post: post}
+                                state: {post: post }
                             }}>
                             <CollectionItem href=" " className="post-link">
                                 <strong>
