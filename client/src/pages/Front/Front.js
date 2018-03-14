@@ -46,8 +46,8 @@ class Front extends Component {
     createPost = () => {
         console.log(this.state)
         this.setState({
-            isOpen: this.state.isOpen
-          });
+            isOpen: true,
+          })
     };
 
     render() {
@@ -84,6 +84,17 @@ class Front extends Component {
                             )
                         )}
                     </Collection>
+                </div>
+                <div className="App">
+                    <button onClick={this.toggleModal}>
+                    Open the modal
+                    </button>
+
+                <Modal 
+                    show={this.state.isOpen}
+                    onClose={this.toggleModal}>
+                    `Here's some content for the modal`
+                </Modal>
                 </div>
             </div>
         );
