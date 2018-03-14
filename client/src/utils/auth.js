@@ -13,7 +13,7 @@ export default class AuthService {
         // Get a token from api server using the fetch api
         return API.login({username: username, password: password})
         .then(res => {
-            this.setToken(res.token) // Setting the token in localStorage
+            this.setToken(res.data.token) // Setting the token in localStorage
             return Promise.resolve(res);
         })
     }
