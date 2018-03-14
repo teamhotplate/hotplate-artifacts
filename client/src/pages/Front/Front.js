@@ -27,7 +27,7 @@ class Front extends Component {
     };
 
     getUserId = () => {
-        if (this.Auth.loggedIn){
+        if (this.Auth.loggedIn()){
             let UserData = this.Auth.getProfile();
             console.log(UserData)
             this.setState(
