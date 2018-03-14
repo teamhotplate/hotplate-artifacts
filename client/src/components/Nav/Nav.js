@@ -8,7 +8,7 @@ class Nav extends Component {
         this.Auth = new AuthService();
         this.handleLogout = this.handleLogout.bind(this);
         this.getUserId = this.getUserId.bind(this);
-        this.userId = null;
+        this.userId = "";
 
     }
 
@@ -26,8 +26,11 @@ class Nav extends Component {
         }
     }
     handleLogout = () => {
+        this.setState(
+            {userId: null}
+        )
         this.Auth.logout();
-        }
+    }
 
 render() {
     return (
