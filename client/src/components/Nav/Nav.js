@@ -17,11 +17,13 @@ class Nav extends Component {
     }
 
     getUserId = () => {
-        let UserData = this.Auth.getProfile()
+        if (this.Auth.loggedIn()){
+            let UserData = this.Auth.getProfile()
 
-        this.setState(
-            {userId: UserData.user_id}
-        )
+            this.setState(
+                {userId: UserData.user_id}
+            )
+        }
     }
     handleLogout = () => {
         this.Auth.logout();

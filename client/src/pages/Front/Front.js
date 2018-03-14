@@ -24,10 +24,12 @@ class Front extends Component {
         this.getUserId(); 
     };
     getUserId = () => {
-        let UserData = this.Auth.getProfile();
-        this.setState(
-            { userId: UserData.user_id }
-        )
+        if (this.Auth.loggedIn){
+            let UserData = this.Auth.getProfile();
+            this.setState(
+                { userId: UserData.user_id }
+            )
+        }
     }
 
     loadPages = () => {

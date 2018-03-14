@@ -30,11 +30,13 @@ class Post extends Component {
         this.getUserId();
     };
     getUserId = () => {
-        let UserData = this.Auth.getProfile();
-        console.log(UserData)
-        this.setState(
-            { userId: UserData.user_id }
-        )
+        if (this.Auth.loggedIn()){
+            let UserData = this.Auth.getProfile();
+            console.log(UserData)
+            this.setState(
+                { userId: UserData.user_id }
+            )
+        }
     }
 
     loadComments = () => {
@@ -109,7 +111,7 @@ class Post extends Component {
         return (
             <div className="comment-page">
                 <div className="post-title">
-                    <h1>{this.props.location.state.post.name}</h1>
+                    <h1>{this.props.post.name}</h1>
                 </div>
                 <div className="comments">
                 {console.log(this.state)}
