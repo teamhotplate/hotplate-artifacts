@@ -34,7 +34,7 @@ class Login extends Component {
             alert("That username is unavailable");
         })
     }
-
+    
     handleChange(e) {
         this.setState(
             {
