@@ -7,9 +7,22 @@ class Nav extends Component {
         super();
         this.Auth = new AuthService();
         this.handleLogout = this.handleLogout.bind(this);
+        this.getUserId = this.getUserId.bind(this);
+        this.userId = null;
 
     }
 
+    componentWillMount = () => {
+        this.getUserId();
+    }
+
+    getUserId = () => {
+        let UserData = this.Auth.getProfile()
+
+        this.setState(
+            {userId: UserData.user_id}
+        )
+    }
     handleLogout = () => {
         this.Auth.logout();
         }
@@ -24,7 +37,7 @@ render() {
                         <span className="icon-bar" />
                     </button>
                     <ul id="nav-mobile" className="right">
-                        <li>{!(this.Auth.loggedIn()) ? <a href="/login-page">Login</a> : <a href="/profile">Profile</a>}</li>
+                        <li>{!(this.Auth.loggedIn()) ? <a href="/login-page">Login</a> : <a href={"/profile/"+this.state.userId}>Profile</a>}</li>
                         <li><a onClick={this.handleLogout} href="/">Logout</a></li>
                     </ul>
                     <a href="/" className="navbar-brand">
