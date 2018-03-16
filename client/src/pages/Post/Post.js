@@ -5,6 +5,7 @@ import AuthService from '../../utils/auth';
 import {Collection, CollectionItem, Row} from "react-materialize";
 import { Form, Button, Input } from "../../components/Form";
 import moment from "moment";
+import Modal from "../../components/Modal";
 
 class Post extends Component {
     constructor(props) {
@@ -46,6 +47,7 @@ class Post extends Component {
                 this.setState({ post: res.data })
             ).catch(err => console.log(err))
     };
+
     loadComments = () => {
         API.getCommentByPage(this.props.match.params.id)
             .then(res =>
@@ -72,10 +74,14 @@ class Post extends Component {
 
 
     newComment = event => {
+<<<<<<< HEAD
         event.preventDefault();
         if(this.state.userId === null){
             this.props.history.replace('/login-page');
         } else {
+=======
+        // event.preventDefault();
+>>>>>>> 1e4655d01b04619599b79b6f62b912d221decd2e
         API.createComment({          
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
@@ -84,8 +90,11 @@ class Post extends Component {
                 ParentId: this.state.parentId
         })
         .then(res => this.loadComments());
+<<<<<<< HEAD
         // this.state.text=" ";
         }
+=======
+>>>>>>> 1e4655d01b04619599b79b6f62b912d221decd2e
     };
 
     deleteComment = id => {
@@ -103,7 +112,11 @@ class Post extends Component {
             newComment:{
                 [name]: value,
                 PageId: this.props.match.params.id,
+<<<<<<< HEAD
                 userId: this.state.user_id
+=======
+                userId: this.state.userId
+>>>>>>> 1e4655d01b04619599b79b6f62b912d221decd2e
             }
         });
     };
@@ -117,11 +130,44 @@ class Post extends Component {
             }
         }
         return children;
-    }
+    };
+
+    toggleModal = () => {
+        console.log(this.state);
+        this.setState({
+          isOpen: !this.state.isOpen
+        });
+        this.newComment();
+      };
 
     render() {
         return (
             <div className="comment-page">
+                <Modal 
+                    show={this.state.isOpen}
+                    onClose={this.toggleModal}>
+
+                        <div className="row">
+                            <form className="col s12">
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <textarea 
+                                            id="textarea1" 
+                                            className="materialize-textarea"
+                                            name="text"
+                                            onChange={this.handleInputChange}
+                                            placeholder="Comment"
+                                            >
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                
+                    <Button onClick={this.toggleModal}>
+                        Submit Post
+                    </Button>
+                </Modal>
                 <div className="post-title">
                     <h1>{ this.state.post.name }</h1>
                     <h4>{this.state.post.description}</h4>
@@ -155,6 +201,11 @@ class Post extends Component {
                                                 icon='remove'
                                                 onClick={() => this.deleteComment(cComment.id)}
                                             >Delete</Button>
+
+                                            <Button 
+                                                onClick={this.toggleModal}>
+                                                Reply
+                                            </Button>
                                         </Row>
                                     </CollectionItem>
                                     ))}
@@ -163,16 +214,7 @@ class Post extends Component {
                             )
                         )}
                     </Collection>
-                    <Row>
-                        <Input 
-                        className="input"
-                        type='textarea'
-                        name="text" 
-                        value={this.state.text}
-                        onChange={this.handleInputChange}
-                        />
-                    </Row>
-                    <Button onClick={this.newComment}>
+                    <Button onClick={this.toggleModal}>
                         Participate
                     </Button>
                 </div>

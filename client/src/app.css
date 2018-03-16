@@ -55,3 +55,32 @@ body {
 .timestamp {
     color: rgb(167, 164, 164);
 }
+
+.backdrop {
+    position: 'fixed';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(75, 74, 74, 0.3);
+    padding: 50;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    visibility: visible;
+}
+
+.modal {
+    background-Color: #fff;
+    border-Radius: 5;
+    max-Width: 500;
+    min-Height: 300;
+    margin: 0 auto;
+    padding: 30;
+    z-index: 10;
+}
+
+.text-area {
+    width: 80%;
+    height: 40%
+}
