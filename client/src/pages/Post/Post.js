@@ -20,7 +20,8 @@ class Post extends Component {
                 text: "",
                 pageId: "",
                 username: "",
-                userId: ""
+                userId: null,
+                parentId: null
             }
         }
     };
@@ -72,14 +73,19 @@ class Post extends Component {
 
     newComment = event => {
         event.preventDefault();
+        if(this.state.userId === null){
+            this.props.history.replace('/login-page');
+        } else {
         API.createComment({          
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
                 username: this.state.newComment.user,
-                UserId: this.state.newComment.userId
+                UserId: this.state.userId,
+                ParentId: this.state.parentId
         })
         .then(res => this.loadComments());
         // this.state.text=" ";
+        }
     };
 
     deleteComment = id => {
@@ -97,7 +103,7 @@ class Post extends Component {
             newComment:{
                 [name]: value,
                 PageId: this.props.match.params.id,
-                userId: AuthService.getCurrentUser().user_id
+                userId: this.state.user_id
             }
         });
     };
