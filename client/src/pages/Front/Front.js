@@ -9,13 +9,15 @@ import { Form, Button, Input } from "../../components/Form";
 import moment from "moment";
 
 class Front extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.Auth = new AuthService();
         this.state = {
             posts : [],
             userId : null,
-            isOpen: false
+            isOpen: false,
+            postTitle: "",
+            postDescription: ""
         }
         this.getUserId = this.getUserId.bind(this);
         this.loadPages = this.loadPages.bind(this);
@@ -43,23 +45,72 @@ class Front extends Component {
             ).catch(err => console.log(err))
     };
 
-    createPost = () => {
-        console.log(this.state)
+    createPost = event => {
+        // event.preventDefault();
+        console.log(this.state);
+        API.createPage({
+            name: this.state.postTitle,
+            description: this.state.postDescription,
+            UserId: this.state.userId
+        }).then(res => this.loadPages())
+    };
+
+    toggleModal = () => {
+        console.log(this.state);
         this.setState({
-            isOpen: this.state.isOpen
-          });
+          isOpen: !this.state.isOpen
+        });
+        this.createPost();
+      };
+
+      handleInputChange = event => {
+        const { name, value } = event.target;
+        console.log(name, value);
+        this.setState({
+                [name]: value
+        });
     };
 
     render() {
         return (
             <div className="main">
+            {console.log(this.state)}
+            <Modal 
+                show={this.state.isOpen}
+                onClose={this.toggleModal}>
+                <Input 
+                name="postTitle"
+                className="form-item"
+                placeholder="Post Title"
+                onChange={this.handleInputChange}
+                type="text"
+                />
+
+                <div className="row">
+                    <form className="col s12">
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <textarea 
+                                    id="textarea1" 
+                                    className="materialize-textarea"
+                                    name="postDescription"
+                                    onChange={this.handleInputChange}
+                                    placeholder="Post Description"
+                                    >
+                                </textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+               
+                <Button onClick={this.toggleModal}>
+                    Submit Post
+                </Button>
+            </Modal>
                 <div className="posts">
                     <h1 id="main-title">Welcome to hotplate, home of the hotplate</h1>
                     <Button 
-                        type='delete'
-                        className='red'
-                        icon='remove'
-                        onClick={() => this.createPost()}
+                        onClick={this.toggleModal}
                         >New Post
                     </Button>
                     <Collection>
