@@ -17,11 +17,12 @@ class Post extends Component {
             comments: [],
             parentComments: [],
             childComments: [],
+            parentId: null,
             newComment: {
                 text: "",
                 pageId: "",
                 username: "",
-                userId: ""
+                userId: "",
             }
         }
     };
@@ -72,15 +73,18 @@ class Post extends Component {
     }
 
 
-    newComment = event => {
+    newComment = (parentId = null) => {
         // event.preventDefault();
-        API.createComment({          
+        if (this.state.newComment.text !== null) {
+            API.createComment({          
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
                 username: this.state.newComment.user,
-                UserId: this.state.newComment.userId
+                UserId: this.state.newComment.userId,
+                ParentId: this.state.parentId
         })
-        .then(res => this.loadComments());
+        .then(res => this.loadComments())
+        }       
     };
 
     deleteComment = id => {
@@ -98,7 +102,7 @@ class Post extends Component {
             newComment:{
                 [name]: value,
                 PageId: this.props.match.params.id,
-                userId: this.state.userId
+                userId: this.state.userId,
             }
         });
     };
@@ -114,13 +118,16 @@ class Post extends Component {
         return children;
     };
 
-    toggleModal = () => {
+    toggleModal = parentId => {
         console.log(this.state);
         this.setState({
-          isOpen: !this.state.isOpen
+            isOpen: !this.state.isOpen,
         });
+        this.setState({
+            parentId: parentId
+        })
         this.newComment();
-      };
+    };
 
     render() {
         return (
@@ -158,7 +165,7 @@ class Post extends Component {
                 {console.log(this.state)}
                     <Collection>
                         {this.state.parentComments.map(pComment => (
-                            <CollectionItem className="comment" key={pComment.id}>
+                            <CollectionItem value={pComment.id} className="comment" key={pComment.id}>
                             {pComment.text}
                             <p className="user">- {pComment.username}</p>
                             <p className="timestamp">- {moment(pComment.updatedAt).format("MMMM Do YYYY, h:mm a")}</p>
@@ -169,6 +176,12 @@ class Post extends Component {
                                     icon='remove'
                                     onClick={() => this.deleteComment(pComment.id)}
                                 >Delete</Button>
+
+                                <Button 
+                                    onClick={() => this.toggleModal(pComment.id)}
+                                    value={pComment.id}>
+                                    Reply
+                                </Button>
                             </Row>
                             <Collection>
                                 {this.findChildren(pComment, this.state.childComments).map(cComment => (
@@ -184,10 +197,6 @@ class Post extends Component {
                                                 onClick={() => this.deleteComment(cComment.id)}
                                             >Delete</Button>
 
-                                            <Button 
-                                                onClick={this.toggleModal}>
-                                                Reply
-                                            </Button>
                                         </Row>
                                     </CollectionItem>
                                     ))}
