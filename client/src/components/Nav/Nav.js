@@ -34,23 +34,17 @@ class Nav extends Component {
 
 render() {
     return (
-        <nav className="navbar navbar-inverse navbar-top">
-            <div className="container-fluid">
-                <div className="navbar-header">
-                    <button type="button" className="collapsed navbar-toggle">
-                        <span className="icon-bar" />logo here <span className="icon-bar" />
-                        <span className="icon-bar" />
-                    </button>
-                    <ul id="nav-mobile" className="right">
-                        <li>{!(this.Auth.loggedIn()) ? <a href="/login-page">Login</a> : <a href={"/profile/"+(this.Auth.getProfile()).user_id}>Profile</a>}</li>
-                        <li><a onClick={this.handleLogout} href="/">Logout</a></li>
-                    </ul>
-                    <a href="/" className="navbar-brand">
-                        Your Forum
-                    </a>
-                </div>
+        <nav>
+            <div class="nav-wrapper">
+                <img src="{{=it.LogoImageUrl}}}" alt="{~{=it.CompanyName}~}}" className="logo-img" />
+                <a href="/" class="brand-logo">{~{=it.CompanyName}~}</a>
+                <ul id="nav-mobile" className="right">
+                    <li>{!(this.Auth.loggedIn()) ? <a href="/login-page">Login</a> : <a href={"/profile/" + (this.Auth.getProfile()).user_id}>Profile</a>}
+                    </li>
+                    <li><a onClick={this.handleLogout} href="/">Logout</a></li>
+                </ul>
             </div>
-        </nav>
+        </nav> 
     )}
 }
 
