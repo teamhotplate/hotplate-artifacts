@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import AuthService from "../../utils/auth";
 
+import { Form, Button, Input } from "../../components/Form";
+import { Collection, CollectionItem, Row } from "react-materialize";
+import moment from "moment";
+
 
 class Profile extends Component{
     constructor() {
@@ -54,9 +58,52 @@ class Profile extends Component{
 
     render() {
         return (
-            <div>
-                <p>{JSON.stringify(this.state.comments)}</p>
-                <p>{JSON.stringify(this.state.posts)}</p>
+            <div className="main">
+                <div className="posts">
+                    <h1 id="main-title">Posts</h1>
+                        <Collection>
+                            {this.state.posts.map(post => (
+                                <Link to={{
+                                    pathname: "/post-page/" + post.id,
+                                    state: { post: post }
+                                }}>
+                                    <CollectionItem href=" " className="post-link">
+                                        <strong>
+                                            {post.name}
+                                        </strong>
+                                        <br></br>
+                                        <p>
+                                            {post.description}
+                                        </p>
+                                        <p className="timestamp">
+                                            {moment(post.updatedAt).format("MMMM Do YYYY, h:mm a")}
+                                        </p>
+                                    </CollectionItem>
+                                </Link>
+                            )
+                            )}
+                        </Collection>
+                    </div>
+                    <div className="posts">
+                    <h1 id="main-title">Comments</h1>
+                    <Collection>
+                        {this.state.comments.map(comment => (
+                            <Link to={{
+                                pathname: "/post-page/" + comment.PageId,
+                            }}>
+                                <CollectionItem href=" " className="post-link">
+                                    <p>
+                                        {comment.text}
+                                    </p>
+                                    <p className="timestamp">
+                                        {moment(comment.updatedAt).format("MMMM Do YYYY, h:mm a")}
+                                    </p>
+                                </CollectionItem>
+                            </Link>
+                        )
+                        )}
+                    </Collection>
+                </div>
             </div>
         );
     }
