@@ -36,7 +36,7 @@ render() {
     return (
         <nav>
             <div class="nav-wrapper">
-                <img src="{{=it.LogoImageUrl}}}" alt="{~{=it.CompanyName}~}}" className="logo-img" />
+                <img src="{~{=it.LogoImageUrl}~}}" alt="{~{=it.CompanyName}~}}" className="logo-img" />
                 <a href="/" class="brand-logo">{~{=it.CompanyName}~}</a>
                 <ul id="nav-mobile" className="right">
                     <li>{!(this.Auth.loggedIn()) ? <a href="/login-page">Login</a> : <a href={"/profile/" + (this.Auth.getProfile()).user_id}>Profile</a>}
