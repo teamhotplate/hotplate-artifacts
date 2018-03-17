@@ -74,7 +74,6 @@ class Front extends Component {
     render() {
         return (
             <div className="main">
-            {console.log(this.state)}
             <Modal 
                 show={this.state.isOpen}
                 onClose={this.toggleModal}>
@@ -101,8 +100,7 @@ class Front extends Component {
                             </div>
                         </div>
                     </form>
-                </div>
-               
+                </div> 
                 <Button onClick={this.toggleModal}>
                     Submit Post
                 </Button>
