@@ -31,7 +31,7 @@ class Front extends Component {
     getUserId = () => {
         if (this.Auth.loggedIn()){
             let UserData = this.Auth.getProfile();
-            console.log(UserData)
+           
             this.setState(
                 { userId: UserData.user_id }
             )
@@ -46,8 +46,7 @@ class Front extends Component {
     };
 
     createPost = event => {
-        // event.preventDefault();
-        console.log(this.state);
+       
         API.createPage({
             name: this.state.postTitle,
             description: this.state.postDescription,
@@ -56,7 +55,7 @@ class Front extends Component {
     };
 
     toggleModal = () => {
-        console.log(this.state);
+       
         this.setState({
           isOpen: !this.state.isOpen
         });
@@ -65,7 +64,7 @@ class Front extends Component {
 
       handleInputChange = event => {
         const { name, value } = event.target;
-        console.log(name, value);
+       
         this.setState({
                 [name]: value
         });
@@ -74,7 +73,7 @@ class Front extends Component {
     render() {
         return (
             <div className="main">
-            {console.log(this.state)}
+           
             <Modal 
                 show={this.state.isOpen}
                 onClose={this.toggleModal}>

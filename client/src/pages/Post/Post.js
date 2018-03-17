@@ -22,12 +22,8 @@ class Post extends Component {
                 text: "",
                 pageId: "",
                 username: "",
-<<<<<<< HEAD
-                userId: "",
-=======
                 userId: null,
                 parentId: null
->>>>>>> 021bbf58be1c27c520486113af991ab133d67c52
             }
         }
     };
@@ -79,17 +75,13 @@ class Post extends Component {
 
 
     newComment = (parentId = null) => {
-        // event.preventDefault();
+        
         if (this.state.newComment.text !== null) {
             API.createComment({          
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
                 username: this.state.newComment.user,
-<<<<<<< HEAD
-                UserId: this.state.newComment.userId,
-=======
                 UserId: this.state.userId,
->>>>>>> 021bbf58be1c27c520486113af991ab133d67c52
                 ParentId: this.state.parentId
         })
         .then(res => this.loadComments())
@@ -128,14 +120,10 @@ class Post extends Component {
     };
 
     toggleModal = parentId => {
-        console.log(this.state);
+        
         this.setState({
-<<<<<<< HEAD
-            isOpen: !this.state.isOpen,
-=======
             parentId: parentId,
             isOpen: !this.state.isOpen
->>>>>>> 021bbf58be1c27c520486113af991ab133d67c52
         });
         this.setState({
             parentId: parentId
@@ -176,7 +164,7 @@ class Post extends Component {
                     <h4>{this.state.post.description}</h4>
                 </div>
                 <div className="comments">
-                {console.log(this.state)}
+               
                     <Collection>
                         {this.state.parentComments.map(pComment => (
                             <CollectionItem value={pComment.id} className="comment" key={pComment.id}>
@@ -190,18 +178,9 @@ class Post extends Component {
                                     icon='remove'
                                     onClick={() => this.deleteComment(pComment.id)}
                                 >Delete</Button>
-<<<<<<< HEAD
-
-                                <Button 
-                                    onClick={() => this.toggleModal(pComment.id)}
-                                    value={pComment.id}>
-                                    Reply
-                                </Button>
-=======
                             <Button onClick={() => this.toggleModal(pComment.id)}>
                                 Reply
                             </Button>
->>>>>>> 021bbf58be1c27c520486113af991ab133d67c52
                             </Row>
                             <Collection>
                                 {this.findChildren(pComment, this.state.childComments).map(cComment => (
@@ -216,10 +195,6 @@ class Post extends Component {
                                                 icon='remove'
                                                 onClick={() => this.deleteComment(cComment.id)}
                                             >Delete</Button>
-<<<<<<< HEAD
-
-=======
->>>>>>> 021bbf58be1c27c520486113af991ab133d67c52
                                         </Row>
                                     </CollectionItem>
                                     ))}
