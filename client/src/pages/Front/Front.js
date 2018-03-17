@@ -106,7 +106,7 @@ class Front extends Component {
                 </Button>
             </Modal>
                 <div className="posts">
-                    <h1 id="main-title">{{=it.greeting}}}</h1>
+                    <h1 id="main-title">Welcome to hotplate, home of the hotplate</h1>
                     <Button 
                         onClick={this.toggleModal}
                         >New Post

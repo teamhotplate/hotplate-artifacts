@@ -38,7 +38,7 @@ render() {
             <div className="container-fluid">
                 <div className="navbar-header">
                     <button type="button" className="collapsed navbar-toggle">
-                        <span className="icon-bar" /><img src="{{=it.LogoImageUrl}}" alt="Logo Here"/><span className="icon-bar" />
+                        <span className="icon-bar" />logo here <span className="icon-bar" />
                         <span className="icon-bar" />
                     </button>
                     <ul id="nav-mobile" className="right">
@@ -46,7 +46,7 @@ render() {
                         <li><a onClick={this.handleLogout} href="/">Logout</a></li>
                     </ul>
                     <a href="/" className="navbar-brand">
-                        {{=it.CompanyName}}
+                        Your Forum
                     </a>
                 </div>
             </div>

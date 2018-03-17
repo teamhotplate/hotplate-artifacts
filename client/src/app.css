@@ -12,22 +12,7 @@
 #main-title {
     padding: 10px;
 }
-input:not([type]):focus:not([readonly]),
-input[type=text]:not(.browser-default):focus:not([readonly]),
-input[type=password]:not(.browser-default):focus:not([readonly]),
-input[type=email]:not(.browser-default):focus:not([readonly]),
-input[type=url]:not(.browser-default):focus:not([readonly]),
-input[type=time]:not(.browser-default):focus:not([readonly]),
-input[type=date]:not(.browser-default):focus:not([readonly]),
-input[type=datetime]:not(.browser-default):focus:not([readonly]),
-input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
-input[type=tel]:not(.browser-default):focus:not([readonly]),
-input[type=number]:not(.browser-default):focus:not([readonly]),
-input[type=search]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]){
-    border-bottom: 1px solid red;
-    box-shadow: 0 1px 0 0 red;
-}
+
 form {
     width: 30%;
     margin-left: 40%;
@@ -38,9 +23,37 @@ form {
     -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
     -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
 }
-
+nav {
+    color: {{=it.btnTextColor}};
+    background-color: {{=it.primaryColor}};
+}
+nav a,
+nav ul a{
+    color: {{=it.btnTextColor}}
+}
+.btn, .btn-large {
+    color: {{=it.btnTextColor}};
+    background-color: {{=it.secondaryColor}};
+}
+.collection a.collection-item{
+    color: {{=it.secondaryColor}};
+}
+.collection .collection-item{
+    background-color: {{=it.foregroundColor}};
+}
+.btn:hover, .btn-large:hover{
+    background-color: {{=it.secondaryColor}};
+}
+.btn:focus, .btn-large:focus, .btn-floating:focus{
+    background-color: {{=it.secondaryColorFocus}};
+}
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+    border-bottom: 1px solid {{=it.secondaryColor}};
+    -webkit-box-shadow: 0 1px 0 0 {{=it.secondaryColor}};
+    box-shadow: 0 1px 0 0 {{=it.secondaryColor}};
+}
 .post-link {
-    border-bottom: 2px black;
+    border-bottom: 2px {{=it.btnTextColor}};
     box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
@@ -64,7 +77,7 @@ form {
 }
 
 body {
-    background-color: whitesmoke;
+    background-color: {{=it.backgroundColor}};
 }
 
 .timestamp {
@@ -86,7 +99,17 @@ body {
 }
 
 .modal {
-    background-Color: #fff;
+    background-Color: {{=it.backgroundColor}};
+    border-Radius: 5;
+    max-Width: 500;
+    min-Height: 300;
+    margin: 0 auto;
+    padding: 30;
+    z-index: 10;
+}
+
+.modal {
+    background-Color: {{=it.backgroundColor}};
     border-Radius: 5;
     max-Width: 500;
     min-Height: 300;
