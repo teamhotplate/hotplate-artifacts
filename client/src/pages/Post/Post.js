@@ -17,11 +17,13 @@ class Post extends Component {
             comments: [],
             parentComments: [],
             childComments: [],
+            parentId: null,
             newComment: {
                 text: "",
                 pageId: "",
                 username: "",
-                userId: ""
+                userId: null,
+                parentId: null
             }
         }
     };
@@ -78,14 +80,15 @@ class Post extends Component {
                 text: this.state.newComment.text,
                 PageId: this.props.match.params.id,
                 username: this.state.newComment.user,
-                UserId: this.state.newComment.userId
+                UserId: this.state.userId,
+                ParentId: this.state.parentId
         })
         .then(res => this.loadComments());
     };
 
     deleteComment = id => {
         API.deleteComment(id)
-          .then(res => this.loadComments());
+            .then(res => this.loadComments());
     };
 
     editComment = id => {
@@ -114,13 +117,14 @@ class Post extends Component {
         return children;
     };
 
-    toggleModal = () => {
+    toggleModal = parentId => {
         console.log(this.state);
         this.setState({
-          isOpen: !this.state.isOpen
+            parentId: parentId,
+            isOpen: !this.state.isOpen
         });
         this.newComment();
-      };
+    };
 
     render() {
         return (
@@ -169,6 +173,9 @@ class Post extends Component {
                                     icon='remove'
                                     onClick={() => this.deleteComment(pComment.id)}
                                 >Delete</Button>
+                            <Button onClick={() => this.toggleModal(pComment.id)}>
+                                Reply
+                            </Button>
                             </Row>
                             <Collection>
                                 {this.findChildren(pComment, this.state.childComments).map(cComment => (
@@ -183,11 +190,6 @@ class Post extends Component {
                                                 icon='remove'
                                                 onClick={() => this.deleteComment(cComment.id)}
                                             >Delete</Button>
-
-                                            <Button 
-                                                onClick={this.toggleModal}>
-                                                Reply
-                                            </Button>
                                         </Row>
                                     </CollectionItem>
                                     ))}
@@ -196,7 +198,7 @@ class Post extends Component {
                             )
                         )}
                     </Collection>
-                    <Button onClick={this.toggleModal}>
+                    <Button onClick={() => this.toggleModal()}>
                         Participate
                     </Button>
                 </div>
