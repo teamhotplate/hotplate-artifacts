@@ -3,12 +3,12 @@ module.exports = function (sequelize, DataTypes) {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {len: [1]}
+            validate: {notNull: true}
         },
         description: {
             type: DataTypes.TEXT,
             allowNull: false,
-            validate: {len: [1]}
+            validate: {notNull: true}
         },
     });
     Page.associate = function (models) {
